@@ -5,7 +5,7 @@
 #include "personType.h"
 using namespace std;
 
-class partTimeEmployee
+class partTimeEmployee: public personType
 {
     private:
         double payRate;
@@ -15,27 +15,30 @@ class partTimeEmployee
         void print() const; 
         double calculatePay() const;
         void setNameRateHours(string f, string l, double r, double h);
-        partTimeEmployee(string = "", string = "", double = 0, double = 0);
+        partTimeEmployee(string f, string l, double r, double h);
 };
 
-void partTimeEmployee::print() const
+void partTimeEmployee::print() const                                // In ra lương của Nhân viên
 {
-    cout << "Pay" << endl;
+    cout << "Your salary is: " << calculatePay() << endl;
 }
 
 double partTimeEmployee::calculatePay() const
 {
-
+    return payRate*hoursWorked;
 }
 
 void partTimeEmployee::setNameRateHours(string f, string l, double r, double h)
 {
-
+    personType::SetName(f,l);
+    payRate = r;
+    hoursWorked = h;
 }
 
-partTimeEmployee::partTimeEmployee(string = "", string = "", double = 0, double = 0)
+partTimeEmployee::partTimeEmployee(string f, string l, double r, double h): personType(f,l)
 {
-
+    payRate = r;
+    hoursWorked = h;
 }
 
 #endif

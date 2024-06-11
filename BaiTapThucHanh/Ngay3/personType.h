@@ -12,14 +12,14 @@ class personType
         string lastName;
     
     public:
-        void print();
+        void print() const;
         void SetName(string f, string l);
         string getFirstName() const;
         string getLastName() const;
         personType(string = "" ,string = "");
 };
 
-void personType::print()
+void personType::print() const
 {
     cout << "First Name: " << getFirstName() << endl;
     cout << "Last Name: " << getLastName() << endl;
