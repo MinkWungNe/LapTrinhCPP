@@ -8,6 +8,49 @@ struct Node             //Tạo Cấu trúc Node
     Node *next;
 };
 
+void TaoDanhSach()
+{
+    int array[8]={8,7,9,1,2,12,10,4}; 
+    int Size = sizeof(array) / sizeof(array[0]);
+    Node *head = new Node;
+    head -> pre = head;
+    head -> next = head;
+    Node *current = head;
+    for (int i = 0; i < Size; i++) 
+    {    
+        Node *newNode = new Node;
+        newNode -> Data = array[i];
+        newNode -> pre = nullptr;
+        newNode -> next = nullptr;
+        if (head == current)
+        {
+            head -> next = newNode;
+            newNode -> pre = head;                    
+            newNode -> next = head;
+            head -> pre = newNode;
+            current = newNode; 
+        }
+        else                                                        
+        {
+            newNode -> pre = current;
+            current -> next = newNode;
+            newNode -> next = head;
+            head -> pre = newNode;
+            current = newNode;
+        }
+    }    
+
+    cout <<" Da tao thanh cong day tren." << endl; 
+    Node *to = new Node;
+    to = head -> next;
+    while (to != head)
+    {
+        cout << to -> Data << " ";
+        to = to -> next;
+    }
+    cout << endl;
+}
+
 int main()
 {
     cout << "Xin moi nhap lua chon sau: " << endl; 
@@ -27,45 +70,7 @@ int main()
     { 
         case 1: 
         {
-            int array[8]={8,7,9,1,2,12,10,4}; 
-            int Size = sizeof(array) / sizeof(array[0]);
-            Node *head = new Node;
-            head -> pre = head;
-            head -> next = head;
-            Node *current = nullptr;
-            for (int i = 0; i < Size; i++) 
-            {    
-                Node *newNode = new Node;
-                newNode -> Data = array[i];
-                newNode -> pre = nullptr;
-                newNode -> next = nullptr;
-                if (head == head)
-                {
-                    head -> next = newNode;
-                    newNode -> pre = head;                    
-                    newNode -> next = head;
-                    head -> pre = newNode;
-                    current = newNode; 
-                }
-                else                                                        
-                {
-                    newNode -> pre = current;
-                    current -> next = newNode;
-                    newNode -> next = head;
-                    head -> pre = newNode;
-                    current = newNode;
-                }
-            } 
-            
-            cout <<" Da tao thanh cong day tren." << endl; 
-            Node *to = new Node;
-            to = head -> next;
-            while (to != head)
-            {
-                cout << to -> Data << " ";
-                to = to -> next;
-            }
-            cout << endl;
+            TaoDanhSach();
             break; 
         }
         case 2:
