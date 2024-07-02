@@ -8,13 +8,10 @@ struct Node             //Tạo Cấu trúc Node
     Node *next;
 };
 
-void TaoDanhSach()
+void TaoDanhSach(Node *&head)
 {
     int array[8]={8,7,9,1,2,12,10,4}; 
     int Size = sizeof(array) / sizeof(array[0]);
-    Node *head = new Node;
-    head -> pre = head;
-    head -> next = head;
     Node *current = head;
     for (int i = 0; i < Size; i++) 
     {    
@@ -40,6 +37,8 @@ void TaoDanhSach()
         }
     }    
 
+    delete current;
+
     cout <<" Da tao thanh cong day tren." << endl; 
     Node *to = new Node;
     to = head -> next;
@@ -49,6 +48,28 @@ void TaoDanhSach()
         to = to -> next;
     }
     cout << endl;
+}
+
+void TimKiem(Node *&head)
+{
+    int Input;
+    cout << "Xin moi nhap phan tu can tim kiem: " ;
+    cin >> Input;
+    Node *current = head -> next;
+    for (int i = 0; i < 8; i++)
+    {
+        if (current != head)
+        {
+            if (current -> Data == Input)
+            {
+                cout << "TIM THAY" << endl;
+            }
+            else
+            {
+                current = current -> next;
+            }
+        }
+    }
 }
 
 int main()
@@ -61,6 +82,10 @@ int main()
     cout << "5. Xoa tat ca phan tu." << endl; 
     
     int option=6; 
+    Node *head = new Node;
+    head -> pre = head;
+    head -> next = head;
+
     while (option > 5) 
     { 
         cout << "Xin moi nhap: "; 
@@ -70,13 +95,13 @@ int main()
     { 
         case 1: 
         {
-            TaoDanhSach();
+            TaoDanhSach(head);
             break; 
         }
         case 2:
-        {
-            cout << "Xin moi nhap phan tu can tim kiem: " ; 
-            //findNode... 
+        {   
+            TaoDanhSach(head);
+            TimKiem(head);
             break;
         }
         case 3:
