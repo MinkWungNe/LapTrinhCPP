@@ -52,22 +52,21 @@ void TaoDanhSach(Node *&head)
 
 void TimKiem(Node *&head)
 {
-    int Input;
+    int Input, Index = 1;
     cout << "Xin moi nhap phan tu can tim kiem: " ;
     cin >> Input;
     Node *current = head -> next;
-    for (int i = 0; i < 8; i++)
+    while (current != head)
     {
-        if (current != head)
+        if (current -> Data == Input)
         {
-            if (current -> Data == Input)
-            {
-                cout << "TIM THAY" << endl;
-            }
-            else
-            {
-                current = current -> next;
-            }
+            cout << "TIM THAY o vi tri " << Index << endl;
+            return;
+        }
+        else
+        {
+            current = current -> next;
+            Index++;
         }
     }
 }
@@ -100,7 +99,7 @@ int main()
         }
         case 2:
         {   
-            TaoDanhSach(head);
+            TaoDanhSach(head); cout << endl;
             TimKiem(head);
             break;
         }
