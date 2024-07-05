@@ -8,6 +8,17 @@ struct Node             //Tạo Cấu trúc Node
     Node *next;
 };
 
+void InDanhSach(Node *&head)
+{
+    Node *to = head -> next;
+    while (to != head)
+    {
+        cout << to -> Data << " ";
+        to = to -> next;
+    }
+    cout << endl;
+}
+
 void TaoDanhSach(Node *&head)
 {
     int array[8]={8,7,9,1,2,12,10,4}; 
@@ -36,18 +47,8 @@ void TaoDanhSach(Node *&head)
             current = newNode;
         }
     }    
-
-    delete current;
-
     cout <<" Da tao thanh cong day tren." << endl; 
-    Node *to = new Node;
-    to = head -> next;
-    while (to != head)
-    {
-        cout << to -> Data << " ";
-        to = to -> next;
-    }
-    cout << endl;
+    InDanhSach(head);
 }
 
 void TimKiem(Node *&head)
@@ -69,6 +70,70 @@ void TimKiem(Node *&head)
             Index++;
         }
     }
+    cout << "Khong tim thay..." << endl;
+}
+
+void ThemNode(Node *&head, int Location, int newData)
+{
+    Node *newNode = new Node;
+    newNode -> pre = nullptr;
+    newNode -> next = nullptr;
+    Node *current = head -> next;
+    int count = 1;
+    while (current != head) 
+    {
+        if (count == Location)
+        {
+            newNode -> Data = newData;
+            newNode -> pre = current -> pre;
+            (current -> pre) -> next = newNode;
+            newNode -> next = current;
+            current -> pre = newNode;
+            return;
+        }
+        else 
+        {
+            current = current -> next;
+            count++;
+        }
+    }
+    delete current;
+}
+
+void XoaPhanTu(Node *&head, int Location)
+{
+    Node *current = head -> next;
+    int count = 1;
+    while (current != head)
+    {
+        if (count == Location)
+        {
+            (current -> pre) -> next = current -> next;
+            (current -> next) -> pre = current -> pre;
+            delete current;
+            return;
+        }
+        else 
+        {
+            current = current -> next;
+            count++;
+        }
+    }
+}
+
+void CleanUp(Node *&head)
+{
+    cout << "Dang xoa danh sach..." << endl;
+    Node *last = head -> pre;
+    while (head != last)
+    {
+        Node *temp = head;
+        head = head -> next;
+        delete temp;
+        head -> pre = last;
+        last -> next = head;
+    }
+    InDanhSach(head);
 }
 
 int main()
@@ -92,42 +157,40 @@ int main()
     } 
     switch (option) 
     { 
-        case 1: 
+        case 1: // Task 1: Tạo dãy liên kết
         {
             TaoDanhSach(head);
             break; 
         }
-        case 2:
+        case 2: // Task 2: Tìm phân tử trong đây
         {   
-            TaoDanhSach(head); cout << endl;
             TimKiem(head);
             break;
         }
-        case 3:
+        case 3: // Task 3: Thêm phần tử vào trong dãy
         {
+            int Location, newData;
             cout << "Xin moi nhap vi tri can them vao: " ; 
-            //... 
+            cin >> Location;
             cout << "Xin moi nhap phan tu can them vao: " ; 
-            //........... 
+            cin >> newData;
+            ThemNode(head, Location, newData);
             break;
         }
-        case 4:
+        case 4: // Task 4: Xoá phần từ trong dãy
         {
+            int Location;
             cout << "Xin moi nhap vi tri can xoa: " ; 
-            //... 
-            //........... 
+            cin >> Location;
+            XoaPhanTu(head, Location);
             break;
         }
-        case 5:
+        case 5: // Task 5: Xoá tất cả phần tử
         {
+            CleanUp(head);
             break;
         }
-
-        default:
-        {
-            break; 
-        } 
-            
+        default: break;   
     } 
     return 0;
 }

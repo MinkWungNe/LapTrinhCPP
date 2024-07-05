@@ -66,4 +66,5 @@
         "numbers": "cpp"
     }, 
     "breadcrumbs.enabled": true,
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
 }
